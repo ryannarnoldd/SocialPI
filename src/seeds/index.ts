@@ -1,5 +1,5 @@
 import db from '../config/connection.js';
-import { Course, Student } from '../models/index.js';
+import { Thought, User } from '../models/index.js';
 import cleanDB from './cleanDB.js';
 import { getRandomName, getRandomAssignments } from './data.js';
 
@@ -29,10 +29,10 @@ try {
   }
 
   // Add students to the collection and await the results
-  const studentData = await Student.create(students);
+  const studentData = await User.create(students);
 
   // Add courses to the collection and await the results
-  await Course.create({
+  await Thought.create({
     name: 'UCLA',
     inPerson: false,
     students: [...studentData.map(({ _id }: { [key: string]: any }) => _id)],
