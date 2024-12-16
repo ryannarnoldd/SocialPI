@@ -1,49 +1,96 @@
 import db from '../config/connection.js';
-import { Thought, User } from '../models/index.js';
-import cleanDB from './cleanDB.js';
-import { getRandomName, getRandomAssignments } from './data.js';
+import Thought from '../models/Thought.js';
+import User from '../models/User.js';
 
-try {
-  await db();
-  await cleanDB();
+// Array of names for generating random users
+const names = [
+  'Aaran', 'Aaren', 'Aarez', 'Aarman', 'Aaron', 'Aaron-James', 'Aarron', 'Aaryan', 'Aaryn', 'Aayan',
+  'Aazaan', 'Abaan', 'Abbas', 'Abdallah', 'Abdalroof', 'Smith', 'Jones', 'Coollastname', 'Ze',
+  'Zechariah', 'Zeek', 'Zeeshan', 'Zen', 'Zendel', 'Zenith', 'Zennon', 'Zeph', 'Zion', 'Ziyaan'
+];
 
-  // Create empty array to hold the students
-  const students = [];
+// Array of thought texts for generating random thoughts
+const thoughts = [
+  'I love programming!', 'Node.js is amazing.', 'React makes development fun!', 
+  'Coding late at night is so peaceful.', 'Why is debugging so hard?', 
+  'MongoDB is pretty cool.', 'JavaScript forever!', 'Just learned about TypeScript!',
+  'Social networks are fascinating.', 'I need coffee!', 'Is AI taking over the world?',
+  'The weather is perfect for coding today.', 'Learning something new every day.'
+];
 
-  // Loop 20 times -- add students to the students array
-  for (let i = 0; i < 20; i++) {
-    // Get some random assignment objects using a helper function that we imported from ./data
-    const assignments = getRandomAssignments(20);
+// Array of reaction texts for generating random reactions
+// const reactions = [
+//   'Totally agree!', 'This is awesome!', 'Hilarious!', 'Very insightful.', 
+//   'I think the same!', 'Could not have said it better.', 'Interesting perspective.', 
+//   'Haha, love this!', 'Good point.', 'Well said!'
+// ];
 
-    const fullName = getRandomName();
-    const first = fullName.split(' ')[0];
-    const last = fullName.split(' ')[1];
-    const github = `${first}${Math.floor(Math.random() * (99 - 18 + 1) + 18)}`;
+// Helper function to get a random item from an array
+const getRandomArrItem = (arr: any) => arr[Math.floor(Math.random() * arr.length)];
 
-    students.push({
-      first,
-      last,
-      github,
-      assignments,
+// Function to generate a random user
+const getRandomUser = () => {
+  const firstName = getRandomArrItem(names);
+  // const lastName = getRandomArrItem(names);
+  const username = `${firstName}_${Math.floor(Math.random() * 1000)}`;
+  const email = `${username.toLowerCase()}@example.com`;
+  
+  return { username, email, password: 'password123' };
+};
+
+// Function to generate a random thought
+const getRandomThought = (userId: string) => ({
+  thoughtText: getRandomArrItem(thoughts),
+  username: userId,
+  reactions: [],
+});
+
+const seedDatabase = async () => {
+  try {
+    // Connect to database
+    await db();
+
+    // Clear existing data
+    await User.deleteMany({});
+    await Thought.deleteMany({});
+
+    console.info('Database cleaned.');
+
+    // Generate users
+    const users = await Promise.all(
+      Array.from({ length: 10 }).map(() => User.create(getRandomUser()))
+    );
+
+    console.info('Users created.');
+
+    // Generate thoughts for some users
+    const thoughtPromises = users.map(async (user) => {
+      const thought = getRandomThought(user.username);
+      const newThought = await Thought.create(thought);
+
+      // Add thought to the user's thoughts array
+      await User.findByIdAndUpdate(user._id, { $push: { thoughts: newThought._id } });
+
+      // Optionally add reactions to the thought
+      // const reactionCount = Math.floor(Math.random() * 4); // Up to 3 reactions per thought
+      // const reactionData = Array.from({ length: reactionCount }).map(() => ({
+      //   reactionText: getRandomArrItem(reactions),
+      //   username: getRandomArrItem(users).username,
+      // }));
+      // newThought.reactions = reactionData;
+      await newThought.save();
+      return newThought;
     });
+
+    await Promise.all(thoughtPromises);
+
+    console.info('Thoughts and reactions created.');
+    console.info('Seeding complete! 🌱');
+    process.exit(0);
+  } catch (error) {
+    console.error('Error during seeding:', error);
+    process.exit(1);
   }
+};
 
-  // Add students to the collection and await the results
-  const studentData = await User.create(students);
-
-  // Add courses to the collection and await the results
-  await Thought.create({
-    name: 'UCLA',
-    inPerson: false,
-    students: [...studentData.map(({ _id }: { [key: string]: any }) => _id)],
-  });
-
-  // Log out the seed data to indicate what should appear in the database
-  console.table(students);
-  console.info('Seeding complete! 🌱');
-  process.exit(0);
-} catch (error) {
-  console.error('Error seeding database:', error);
-  process.exit(1);
-}
-
+seedDatabase();
