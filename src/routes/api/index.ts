@@ -4,6 +4,7 @@ import { userRouter } from './userRoutes.js';
 
 const router = Router();
 
+// Both routers.
 router.use('/users', userRouter);
 router.use('/thoughts', thoughtRouter);
 

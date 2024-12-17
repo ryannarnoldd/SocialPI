@@ -1,7 +1,7 @@
 {
   "name": "socialpi",
   "version": "1.0.0",
-  "description": "",
+  "description": "social network api",
   "main": "server.js",
   "type": "module",
   "scripts": {

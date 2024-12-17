@@ -3,7 +3,7 @@
 
 ## Description
 
-This is a Vehicle Builder project that allows the user to create and select vehicles in the terminal. In there, you are able to create a new vehicle or select an existing vehicle. After going through the creation process or the selection process, the user is able to perform certain actions. This application is built using TypeScript and Classes. This is for Module 8 of the Full Stack Coding Bootcamp.
+This is a Social Media Network Backend API. This is solely for backend purposes and has not current front-end to accompany it. On this project, you can add, create, post, and react to posts in the network. This application is built using TypeScript and NoSQL. This is for Module 17 of the Full Stack Coding Bootcamp.
 
 ## Table of Contents
 
@@ -16,7 +16,7 @@ This is a Vehicle Builder project that allows the user to create and select vehi
 
 ## Installation
 
-To install this project, the user must clone the repository from GitHub (The link where you are reading this). The user must have Typescript installed. Once you are in the repository, run the command "npm install" to install the necessary packages and dependencies. After that, all you need to do is run the command "npm run start" to start the application.
+To install this project, the user must clone the repository from GitHub (The link where you are reading this). The user must have Typescript installed. Once you are in the repository, run the command `npm install` to install the necessary packages and dependencies. After that, you need to `npm run build` to build the code, and `npm run start` to start the server.
 
 ## Usage
 
@@ -34,7 +34,7 @@ The license used is MIT. Here is the link to get detailed information for this l
 
 ## Tests
 
-Here are some screenshots of the working product in the terminal. On top of that, there is a video walkthrough of the project in this ReadMe file. There are examples of creation of a vehicle, usage of the vehicles and the actions that can be performed with the vehicles. 
+Here is the linked video for the project that is used in the project submission.
 
 ## Questions
 
