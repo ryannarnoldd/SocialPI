@@ -7,12 +7,7 @@ This is a Social Media Network Backend API. This is solely for backend purposes 
 
 ## Table of Contents
 
-- [Installation](#installation)
-- [Usage](#usage)
-- [Credits](#credits)
-- [License](#license)
-- [Tests](#tests)
-- [Questions](#questions)
+@@ -16,7 +16,7 @@
 
 ## Installation
 
@@ -20,24 +15,15 @@ To install this project, the user must clone the repository from GitHub (The lin
 
 ## Usage
 
-Once 'npm run start' is ran, the user will be prompted to create a new vehicle or select an existing vehicle (there are a few vehicles present already). The user can create a vehicle by selecting the type of vehicle (car, truck, or motorbike) and then entering the vehicle information (color, make, age, weight, so on). The user can then use the created vehicle. If the user selects an existing vehicle, they can use the selected vehicle. The user can perform actions with the vehicle and see the result of the action in the command-line. The user can perform additional actions until they choose to exit. The actions the user can perform are including, but not limited to, aceelerating, decelerating, doing a wheelie (for motorbikes), and towing (for trucks). You can also turn left and right or print any necessary information about the vehicle.
+<img width="296" alt="Screenshot 2024-12-16 at 11 13 59 PM" src="https://github.com/user-attachments/assets/dc248d63-1f5e-46b7-b7c5-0cd15a51a762" />
 
-The details for the created vehicle are stored only temporarily in the application. Once the application is closed, the details are lost. The user can create a new vehicle with the same details if they wish to do so. There is no database or file storage for the vehicles.
-
-## Contributing
-
-Ryan Arnold is the sole contributor to this project.
-
-## Section
-
-The license used is MIT. Here is the link to get detailed information for this license: [MIT](https://mit-license.org/)
 
 ## Tests
 
 Here is the linked video for the project that is used in the project submission.
 
+https://files.fm/u/6ewbxwdnkb
+
 ## Questions
 
 You can also find me on GitHub at [ryannarnoldd](https://www.github.com/ryannarnoldd).
-
-If you have any questions, please contact me at [ryannarnoldd@gmail.com](mailto:ryannarnoldd@gmail.com).
