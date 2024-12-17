@@ -41,10 +41,10 @@ export const createThought = async (_req: Request, res: Response) => {
         );
         if (!user) {
             return res.status(404).json({
-                message: 'Thought thunked. But no user with that Id found'
+                message: 'No user with that Id found'
             })
         }
-        res.json('You Thunked A Thought!');
+        res.json('Thought created!');
         return;
     } catch (err) {
       console.log(err);
@@ -61,7 +61,7 @@ export const updateThought = async (_req: Request, res: Response) => {
             {runValidators: true, new: true}
         );
         if (!thought) {
-            return res.status(404).json({ message: 'No thought. Head Empty!' });
+            return res.status(404).json({ message: 'Thought not found!' });
         }
         res.json(thought);
         return;
@@ -77,7 +77,7 @@ export const deleteThought = async (_req: Request, res: Response) => {
         const thought = await Thought.findOneAndDelete({ _id: _req.params.thoughtId });
 
         if (!thought) {
-        return res.status(404).json({ message: 'No thoughts. Head Empty.' });
+        return res.status(404).json();
         }
         res.json({ message: 'Thought deleted!' })
         return;
@@ -95,7 +95,7 @@ export const createReaction = async (_req: Request, res: Response) => {
             {runValidators: true, new: true}
         );
         if (!thought) {
-            res.status(404).json({ message: 'No Thoughts. Head Empty.'});
+            res.status(404).json({ message: 'No Thought.'});
         }
         res.status(200).json(thought);
     }
@@ -112,9 +112,9 @@ export const deleteReaction = async (_req: Request, res: Response) => {
             {runValidators: true, new: true}
         );
         if (!thought) {
-            res.status(404).json({ message: 'No Thoughts. Head Empty.'});
+            res.status(404).json({ message: 'No Thought.'});
         }
-        res.status(200).json({ message: 'Thought forgotten.'});
+        res.status(200).json({ message: 'Thought deleted.'});
     }
     catch (err) {
         res.status(500).json(err);
